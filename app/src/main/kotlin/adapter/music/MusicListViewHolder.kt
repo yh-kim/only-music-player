@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package base.view
+package view.music.list.adapter
 
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import kotlinx.android.synthetic.main.item_music.view.*
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-27
  */
 
-open class BaseActivity: AppCompatActivity() {
-    val TAG = "OMP__${javaClass.simpleName}"
+class MusicListViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    fun onBind(item: Music, position: Int) {
+        with(itemView) {
+            tv_music_item_title.text = item.name
+        }
+    }
 }

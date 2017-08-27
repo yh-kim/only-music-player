@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package view.main.adapter
+package view.music.list.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

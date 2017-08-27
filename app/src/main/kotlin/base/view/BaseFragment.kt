@@ -16,12 +16,12 @@
 
 package base.view
 
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-28
  */
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseFragment: Fragment() {
     val TAG = "OMP__${javaClass.simpleName}"
 }

@@ -17,9 +17,6 @@
 package view.main
 
 import base.mvp.BaseView
-import view.main.adapter.Music
-import view.main.adapter.MusicListContract
-import java.io.File
 
 /**
  * Created by yonghoon on 2017-08-27
@@ -28,45 +25,9 @@ import java.io.File
 class MainPresenter: MainContract.Presenter {
 
     private lateinit var mView: MainContract.View
-    private lateinit var mMusicView: MusicListContract.View
-    private lateinit var mMusicModel: MusicListContract.Model
 
     override fun attachView(view: BaseView<*>) {
         mView = view as MainContract.View
         mView.start()
-    }
-
-    override fun setMusicListAdapterView(view: MusicListContract.View) {
-        mMusicView = view
-    }
-
-    override fun setMusicListAdapterModel(model: MusicListContract.Model) {
-        mMusicModel = model
-    }
-
-    override fun getMusicFileList(): List<File> {
-        val files = File("/storage/emulated/0/Download/")
-                .listFiles()
-                .filter {
-                    it.name.substring(it.name.length - 3) == "mp3"
-                }
-
-        for(file in files) {
-            mMusicModel.add(Music(file.name))
-        }
-
-        return files
-    }
-
-    override fun playMusic() {
-    }
-
-    override fun pauseMusic() {
-    }
-
-    override fun stopMusic() {
-    }
-
-    override fun getMusicStatus() {
     }
 }

@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package view.main.adapter
+package view.music.list.adapter
 
 /**
  * Created by yonghoon on 2017-08-27
  */
 
-interface MusicListContract {
-    interface View {
-
-    }
-
-    interface Model {
-        fun getItem(position: Int): Music
-        fun add(item: Music)
-        fun getItemCount(): Int
-    }
-}
+data class Music (var name: String)

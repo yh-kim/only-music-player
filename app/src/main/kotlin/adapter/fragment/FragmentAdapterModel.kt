@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package base.view
+package adapter.fragment
 
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-28
  */
 
-open class BaseActivity: AppCompatActivity() {
-    val TAG = "OMP__${javaClass.simpleName}"
+interface FragmentAdapterModel {
+    fun setFrameLayout(id: Int)
+    fun getItem(position: Int): Fragment
+    fun showMusicFragment()
+    fun showPlayerFragment()
+    fun getCurrentPage(): Int
 }

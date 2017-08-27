@@ -14,20 +14,28 @@
  * limitations under the License.
  */
 
-package view.main.adapter
+package view.music
 
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import kotlinx.android.synthetic.main.item_music.view.*
+import base.mvp.BasePresenter
+import base.mvp.BaseView
+import view.music.list.adapter.MusicListContract
+import java.io.File
 
 /**
- * Created by yonghoon on 2017-08-27
+ * Created by yonghoon on 2017-08-28
  */
 
-class MusicListViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    fun onBind(item: Music, position: Int) {
-        with(itemView) {
-            tv_music_item_title.text = item.name
-        }
+interface MusicContract {
+    interface View: BaseView<Presenter> {
+    }
+
+    interface Presenter: BasePresenter {
+        fun setMusicListAdapterView(view: MusicListContract.View)
+        fun setMusicListAdapterModel(model: MusicListContract.Model)
+        fun getMusicFileList(): List<File>
+        fun playMusic()
+        fun pauseMusic()
+        fun stopMusic()
+        fun getMusicStatus()
     }
 }

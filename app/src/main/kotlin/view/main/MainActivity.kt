@@ -16,15 +16,12 @@
 
 package view.main
 
+import adapter.fragment.FragmentAdapter
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import base.view.BaseActivity
 import com.pickth.onlymusicplayer.R
-import extensions.convertDpToPixel
 import kotlinx.android.synthetic.main.activity_main.*
-import util.MusicDividerItemDecoration
-import view.main.adapter.MusicListAdapter
 
 /**
  * Created by yonghoon on 2017-08-23
@@ -33,28 +30,23 @@ import view.main.adapter.MusicListAdapter
 class MainActivity: BaseActivity(), MainContract.View {
 
     private lateinit var mPresenter: MainContract.Presenter
-    private lateinit var mMusicAdapter: MusicListAdapter
+    private lateinit var mFragmentAdapter: FragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mMusicAdapter = MusicListAdapter()
-
         mPresenter = MainPresenter().apply {
             attachView(this@MainActivity)
-            setMusicListAdapterView(mMusicAdapter)
-            setMusicListAdapterModel(mMusicAdapter)
-            getMusicFileList()
         }
     }
 
     override fun start() {
-        rv_main_music_list.run {
-            adapter = mMusicAdapter
-            layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(MusicDividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL, convertDpToPixel(10), true))
-        }
+        mFragmentAdapter = FragmentAdapter(supportFragmentManager)
+                .apply {
+                    setFrameLayout(fl_main.id)
+                    getItem(0)
+                }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
