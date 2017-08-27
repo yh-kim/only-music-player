@@ -18,13 +18,14 @@ package view.music
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.view.BaseFragment
 import com.pickth.onlymusicplayer.R
 import extensions.convertDpToPixel
-import kotlinx.android.synthetic.main.fragment_music_list.view.*
+import kotlinx.android.synthetic.main.fragment_music.view.*
 import util.MusicDividerItemDecoration
 import view.music.list.adapter.MusicListAdapter
 
@@ -44,7 +45,7 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_music_list, container, false)
+        rootView = inflater.inflate(R.layout.fragment_music, container, false)
 
         mMusicAdapter = MusicListAdapter()
 
@@ -63,6 +64,12 @@ class MusicFragment : BaseFragment(), MusicContract.View {
             adapter = mMusicAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(MusicDividerItemDecoration(context, LinearLayoutManager.VERTICAL, context.convertDpToPixel(10), true))
+        }
+
+        rootView.tv_main_music_play.setOnClickListener {
+            Log.d(TAG, "music play onCLick")
+
+            fragmentChangeListener.onChange(1)
         }
     }
 }

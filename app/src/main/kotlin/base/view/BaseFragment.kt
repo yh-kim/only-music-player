@@ -17,6 +17,7 @@
 package base.view
 
 import android.support.v4.app.Fragment
+import listener.OnFragmentChangeListener
 
 /**
  * Created by yonghoon on 2017-08-28
@@ -24,4 +25,10 @@ import android.support.v4.app.Fragment
 
 open class BaseFragment: Fragment() {
     val TAG = "OMP__${javaClass.simpleName}"
+
+    lateinit var fragmentChangeListener: OnFragmentChangeListener
+
+    fun setOnFragmentChangeListener(listener: OnFragmentChangeListener) {
+        fragmentChangeListener = listener
+    }
 }

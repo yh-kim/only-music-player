@@ -14,17 +14,31 @@
  * limitations under the License.
  */
 
-package adapter.fragment
+package view.music
 
-import android.support.v4.app.Fragment
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import base.view.BaseFragment
+import com.pickth.onlymusicplayer.R
 
 /**
  * Created by yonghoon on 2017-08-28
  */
 
-interface FragmentAdapterModel {
-    fun initialPage(position: Int)
-    fun setFrameLayout(id: Int)
-    fun getItem(position: Int): Fragment
-    fun getCurrentPage(): Int
+class PlayerFragment : BaseFragment() {
+
+    private lateinit var rootView: View
+
+    companion object {
+        private val mInstance = PlayerFragment()
+        fun getInstance(): PlayerFragment = mInstance
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        rootView = inflater.inflate(R.layout.fragment_player, container, false)
+
+        return rootView
+    }
 }

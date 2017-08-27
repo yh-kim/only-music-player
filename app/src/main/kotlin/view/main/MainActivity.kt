@@ -45,7 +45,7 @@ class MainActivity: BaseActivity(), MainContract.View {
         mFragmentAdapter = FragmentAdapter(supportFragmentManager)
                 .apply {
                     setFrameLayout(fl_main.id)
-                    getItem(0)
+                    initialPage(0)
                 }
     }
 

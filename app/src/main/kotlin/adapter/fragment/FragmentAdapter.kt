@@ -17,42 +17,52 @@
 package adapter.fragment
 
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.util.Log
+import base.view.BaseFragment
+import listener.OnFragmentChangeListener
 import view.music.MusicFragment
+import view.music.PlayerFragment
 
 /**
  * Created by yonghoon on 2017-08-28
  */
 
-class FragmentAdapter(val fragmentManager: android.support.v4.app.FragmentManager): FragmentAdapterModel {
+class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterModel, OnFragmentChangeListener {
+    val TAG = "OMP__${javaClass.simpleName}"
 
     private var frameLayoutId: Int = 0
-    private var mMusicFragment: Fragment = MusicFragment.getInstance()
+    private var mMusicFragment: BaseFragment = MusicFragment.getInstance().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+    private var mPlayerFragment: BaseFragment = PlayerFragment.getInstance().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+
+    override fun initialPage(position: Int) {
+        fragmentManager.beginTransaction().run {
+            replace(frameLayoutId, getItem(position))
+            commit()
+        }
+    }
 
     override fun setFrameLayout(id: Int) {
         frameLayoutId = id
     }
 
-    override fun getItem(position: Int): Fragment = when(position) {
+    override fun getItem(position: Int): Fragment = when (position) {
         0 -> {
-            showMusicFragment()
             mMusicFragment
         }
         else -> {
-            mMusicFragment
+            mPlayerFragment
         }
     }
 
-    override fun showMusicFragment() {
-        if(fragmentManager != null) {
-            fragmentManager.beginTransaction().run {
-                setCustomAnimations(0,0)
-                replace(frameLayoutId, mMusicFragment)
-                        .commit()
-            }
-        }
-    }
+    override fun onChange(position: Int) {
+        Log.d(TAG, "onChange position: $position")
 
-    override fun showPlayerFragment() {
+        fragmentManager.beginTransaction().run {
+            //            setCustomAnimations(0, 0)
+            replace(frameLayoutId, getItem(position))
+            commit()
+        }
     }
 
     override fun getCurrentPage(): Int {

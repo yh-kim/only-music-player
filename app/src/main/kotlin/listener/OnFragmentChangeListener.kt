@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package adapter.fragment
-
-import android.support.v4.app.Fragment
+package listener
 
 /**
  * Created by yonghoon on 2017-08-28
  */
 
-interface FragmentAdapterModel {
-    fun initialPage(position: Int)
-    fun setFrameLayout(id: Int)
-    fun getItem(position: Int): Fragment
-    fun getCurrentPage(): Int
+interface OnFragmentChangeListener {
+    fun onChange(position: Int)
 }
