@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-import android.os.Bundle
+package base.view
+
 import android.support.v7.app.AppCompatActivity
-import com.pickth.onlymusicplayer.R
 
 /**
  * Created by yonghoon on 2017-08-23
  */
 
-class MainActivity: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+open class BaseActivity: AppCompatActivity() {
+    val TAG = "OnlyMusicPlayer-${javaClass.simpleName}"
 }
