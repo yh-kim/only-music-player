@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import base.view.BaseFragment
 import com.pickth.onlymusicplayer.R
+import kotlinx.android.synthetic.main.fragment_player.view.*
 
 /**
  * Created by yonghoon on 2017-08-28
@@ -31,14 +32,15 @@ class PlayerFragment : BaseFragment() {
 
     private lateinit var rootView: View
 
-    companion object {
-        private val mInstance = PlayerFragment()
-        fun getInstance(): PlayerFragment = mInstance
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_player, container, false)
 
+        rootView.tv_player_screen.setOnClickListener {
+            fragmentChangeListener.onChange(0)
+        }
+
         return rootView
     }
+
+
 }

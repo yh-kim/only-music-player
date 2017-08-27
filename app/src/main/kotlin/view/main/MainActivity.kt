@@ -19,6 +19,7 @@ package view.main
 import adapter.fragment.FragmentAdapter
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import base.view.BaseActivity
 import com.pickth.onlymusicplayer.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity: BaseActivity(), MainContract.View {
 
     private lateinit var mPresenter: MainContract.Presenter
-    private lateinit var mFragmentAdapter: FragmentAdapter
+    private var mFragmentAdapter: FragmentAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +43,12 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun start() {
+        Log.d(TAG, "start")
         mFragmentAdapter = FragmentAdapter(supportFragmentManager)
                 .apply {
                     setFrameLayout(fl_main.id)
                     initialPage(0)
+                    Log.d(TAG, "initialPage")
                 }
     }
 
@@ -56,5 +59,10 @@ class MainActivity: BaseActivity(), MainContract.View {
         // setContentView
 
         // 데이터 바인딩
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mFragmentAdapter = null
     }
 }

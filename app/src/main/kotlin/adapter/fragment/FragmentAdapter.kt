@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import base.view.BaseFragment
+import com.pickth.onlymusicplayer.R
 import listener.OnFragmentChangeListener
 import view.music.MusicFragment
 import view.music.PlayerFragment
@@ -31,13 +32,15 @@ import view.music.PlayerFragment
 class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterModel, OnFragmentChangeListener {
     val TAG = "OMP__${javaClass.simpleName}"
 
+    var currentPosition = 0
     private var frameLayoutId: Int = 0
-    private var mMusicFragment: BaseFragment = MusicFragment.getInstance().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
-    private var mPlayerFragment: BaseFragment = PlayerFragment.getInstance().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+    private var mMusicFragment: BaseFragment? = null
+    private var mPlayerFragment: BaseFragment? = null
 
     override fun initialPage(position: Int) {
+        Log.d(TAG, "initialPage $position")
         fragmentManager.beginTransaction().run {
-            replace(frameLayoutId, getItem(position))
+            add(frameLayoutId, getItem(position))
             commit()
         }
     }
@@ -48,18 +51,23 @@ class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterMod
 
     override fun getItem(position: Int): Fragment = when (position) {
         0 -> {
-            mMusicFragment
+            if(mMusicFragment == null) mMusicFragment = MusicFragment().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+            mMusicFragment!!
         }
         else -> {
-            mPlayerFragment
+            if(mPlayerFragment == null) mPlayerFragment = PlayerFragment().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+            mPlayerFragment!!
         }
     }
 
     override fun onChange(position: Int) {
         Log.d(TAG, "onChange position: $position")
+        currentPosition = position
 
         fragmentManager.beginTransaction().run {
             //            setCustomAnimations(0, 0)
+            if(position == 0) setCustomAnimations(R.anim.no_action, R.anim.slide_out_top)
+            else setCustomAnimations(R.anim.slide_in_top, R.anim.no_action)
             replace(frameLayoutId, getItem(position))
             commit()
         }

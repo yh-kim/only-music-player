@@ -39,11 +39,6 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     private lateinit var mPresenter: MusicContract.Presenter
     private lateinit var mMusicAdapter: MusicListAdapter
 
-    companion object {
-        private val mInstance = MusicFragment()
-        fun getInstance(): MusicFragment = mInstance
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_music, container, false)
 
@@ -56,6 +51,7 @@ class MusicFragment : BaseFragment(), MusicContract.View {
             getMusicFileList()
         }
 
+        Log.d(TAG, "onCreateView")
         return rootView
     }
 
