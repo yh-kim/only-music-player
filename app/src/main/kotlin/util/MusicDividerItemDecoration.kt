@@ -47,17 +47,23 @@ class MusicDividerItemDecoration(context: Context, val orientation: Int , var sp
 
     private val mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider)
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View?, parent: RecyclerView, state: RecyclerView.State?) {
+        val position = parent.getChildAdapterPosition(view)
+
         if(orientation == LinearLayoutManager.VERTICAL) {
-            outRect?.bottom = spacing
+            outRect.bottom = spacing
+
+            if(position == 0) outRect.top = spacing/2
         } else {
-            outRect?.right = spacing
+            outRect.right = spacing
+
+            if(position == 0) outRect.left = spacing/2
         }
     }
 
-    override fun onDrawOver(c: Canvas?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun onDrawOver(c: Canvas?, parent: RecyclerView, state: RecyclerView.State?) {
 
-        val childCount = parent!!.childCount
+        val childCount = parent.childCount
         for(i in 0..childCount-2) {
             val child = parent.getChildAt(i)
 
