@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package base.mvp
+package extensions
+
+import android.content.Context
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-27
  */
 
-interface BaseView<T> {
-    fun start()
-}
+fun Context.convertPixelToDp(px: Float): Float = px / resources.displayMetrics.density
+
+fun Context.convertPixelToDp(px: Int): Int = convertPixelToDp(px.toFloat()).toInt()
+
+fun Context.convertDpToPixel(dp: Float): Float = dp * resources.displayMetrics.density
+
+fun Context.convertDpToPixel(dp: Int): Int = convertDpToPixel(dp.toFloat()).toInt()

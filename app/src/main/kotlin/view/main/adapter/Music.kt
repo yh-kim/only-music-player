@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package view
-
-import android.os.Bundle
-import base.view.BaseActivity
-import com.pickth.onlymusicplayer.R
+package view.main.adapter
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-27
  */
 
-class MainActivity: BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+data class Music (var name: String)

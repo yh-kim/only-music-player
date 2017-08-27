@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-package base.mvp
+package view.main.adapter
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-27
  */
 
-interface BaseView<T> {
-    fun start()
+interface MusicListContract {
+    interface View {
+
+    }
+
+    interface Model {
+        fun getItem(position: Int): Music
+        fun add(item: Music)
+        fun getItemCount(): Int
+    }
 }

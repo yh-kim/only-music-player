@@ -14,12 +14,28 @@
  * limitations under the License.
  */
 
-package base.mvp
+package view.main
+
+import base.mvp.BasePresenter
+import base.mvp.BaseView
+import view.main.adapter.MusicListContract
+import java.io.File
 
 /**
- * Created by yonghoon on 2017-08-23
+ * Created by yonghoon on 2017-08-27
  */
 
-interface BaseView<T> {
-    fun start()
+interface MainContract {
+    interface View: BaseView<Presenter> {
+    }
+
+    interface Presenter: BasePresenter {
+        fun setMusicListAdapterView(view: MusicListContract.View)
+        fun setMusicListAdapterModel(model: MusicListContract.Model)
+        fun getMusicFileList(): List<File>
+        fun playMusic()
+        fun pauseMusic()
+        fun stopMusic()
+        fun getMusicStatus()
+    }
 }
