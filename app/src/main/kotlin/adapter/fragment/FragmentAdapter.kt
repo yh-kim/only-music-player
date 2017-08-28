@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import base.view.BaseFragment
-import com.pickth.onlymusicplayer.R
 import listener.OnFragmentChangeListener
 import view.music.MusicFragment
 import view.music.PlayerFragment
@@ -39,10 +38,12 @@ class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterMod
 
     override fun initialPage(position: Int) {
         Log.d(TAG, "initialPage $position")
-        fragmentManager.beginTransaction().run {
-            add(frameLayoutId, getItem(position))
-            commit()
-        }
+
+//        onChange(position)
+        fragmentManager
+                .beginTransaction()
+                .add(frameLayoutId, getItem(position))
+                .commit()
     }
 
     override fun setFrameLayout(id: Int) {
@@ -51,7 +52,10 @@ class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterMod
 
     override fun getItem(position: Int): Fragment = when (position) {
         0 -> {
-            if(mMusicFragment == null) mMusicFragment = MusicFragment().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+            if(mMusicFragment == null) {
+                Log.d(TAG, "MusicFragment()")
+                mMusicFragment = MusicFragment().apply { setOnFragmentChangeListener(this@FragmentAdapter) }
+            }
             mMusicFragment!!
         }
         else -> {
@@ -64,12 +68,19 @@ class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterMod
         Log.d(TAG, "onChange position: $position")
         currentPosition = position
 
-        fragmentManager.beginTransaction().run {
-            //            setCustomAnimations(0, 0)
-            if(position == 0) setCustomAnimations(R.anim.no_action, R.anim.slide_out_top)
-            else setCustomAnimations(R.anim.slide_in_top, R.anim.no_action)
-            replace(frameLayoutId, getItem(position))
-            commit()
+        if (position == 0) {
+//            fragmentManager.beginTransaction()
+//                    .setCustomAnimations(R.anim.no_action, 0, R.anim.no_action, 0)
+//                    .replace(frameLayoutId, getItem(position))
+//                    .commit()
+
+        } else {
+            // animation 에서 enter 가 exit 아래에서 수행되는걸 유의
+
+//            fragmentManager.beginTransaction()
+//                    .setCustomAnimations(R.anim.slide_in_top, 0, R.anim.slide_in_top, 0)
+//                    .replace(frameLayoutId, getItem(position))
+//                    .commit()
         }
     }
 

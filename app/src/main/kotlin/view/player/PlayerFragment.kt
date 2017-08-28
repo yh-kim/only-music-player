@@ -32,6 +32,10 @@ class PlayerFragment : BaseFragment() {
 
     private lateinit var rootView: View
 
+    companion object {
+        val PLAYER_FRAGMENT_TAG = "PLAYER"
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_player, container, false)
 

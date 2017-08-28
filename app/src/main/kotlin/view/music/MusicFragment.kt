@@ -39,6 +39,10 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     private lateinit var mPresenter: MusicContract.Presenter
     private lateinit var mMusicAdapter: MusicListAdapter
 
+    companion object {
+        val MUSIC_FRAGMENT_TAG = "MUSIC"
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_music, container, false)
 
@@ -65,7 +69,7 @@ class MusicFragment : BaseFragment(), MusicContract.View {
         rootView.tv_main_music_play.setOnClickListener {
             Log.d(TAG, "music play onCLick")
 
-            fragmentChangeListener.onChange(1)
+//            fragmentChangeListener.onChange(1)
         }
     }
 }
