@@ -45,8 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="재생" />
+            android:gravity="center" />
         <View
             android:background="@drawable/line_divider"
             android:layout_width="1px"
@@ -58,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="정지" />
+            android:text="@string/main_stop"/>
     </LinearLayout>
 
 </LinearLayout>

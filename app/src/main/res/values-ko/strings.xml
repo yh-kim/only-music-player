@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">OnlyMusicPlayer</string>
+
+    <string name="main_play">재생</string>
+    <string name="main_pause">일시 정지</string>
+    <string name="main_stop">정지</string>
 </resources>

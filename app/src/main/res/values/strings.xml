@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OnlyMusicPlayer</string>
+
+    <string name="main_play">play</string>
+    <string name="main_pause">pause</string>
+    <string name="main_stop">stop</string>
+    <string name="testestest">test</string>
 </resources>

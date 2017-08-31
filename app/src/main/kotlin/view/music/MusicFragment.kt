@@ -82,15 +82,15 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     override fun showIsPlayingView(playState: Int) {
         when(playState) {
             MusicPresenter.STATE_PALY -> {
-                rootView.tv_main_music_play.text = "pause"
+                rootView.tv_main_music_play.text = context.getString(R.string.main_pause)
                 rootView.tv_main_music_info.text = "${mPresenter.getCurrentMusic()?.name} 재생 중 입니다."
             }
             MusicPresenter.STATE_PAUSE -> {
-                rootView.tv_main_music_play.text = "play"
+                rootView.tv_main_music_play.text = context.getString(R.string.main_play)
                 rootView.tv_main_music_info.text = "${mPresenter.getCurrentMusic()?.name} 일시 정지 중 입니다"
             }
             MusicPresenter.STATE_STOP -> {
-                rootView.tv_main_music_play.text = "play"
+                rootView.tv_main_music_play.text = context.getString(R.string.main_play)
                 rootView.tv_main_music_info.text = "재생중인 음악이 없습니다"
             }
         }
