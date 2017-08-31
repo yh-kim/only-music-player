@@ -24,8 +24,7 @@
         <TextView
             android:id="@+id/tv_main_music_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="재생중인 음악이 없습니다" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <View

@@ -69,7 +69,6 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
                 }
 
         for(file in files) {
-//            Log.d(TAG, "get file list,\nfile.path: ${file.path} \nfile.absolutePath: ${file.absolutePath} \nfile.canonicalPath: ${file.canonicalPath}")
             mMusicModel.add(Music(file.name, 0, path = file.path))
         }
 
@@ -117,7 +116,18 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
         }
 
         mView.showIsPlayingView(STATE_PALY)
-        if(!player.isPlaying) player.start()
+
+        if(!player.isPlaying) {
+            player.start()
+
+            player.setOnCompletionListener {
+                Log.d(TAG, "stopMusic")
+                it.stop()
+                it.reset()
+                mCurrentMusic = null
+                bindMusicStatus()
+            }
+        }
     }
 
     override fun pauseMusic() {
@@ -126,7 +136,7 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
             player.run {
                 Log.d(TAG, "pauseMusic")
                 pause()
-                mView.showIsPlayingView(STATE_PAUSE)
+                bindMusicStatus()
             }
         }
     }
@@ -138,11 +148,20 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
             stop()
             reset()
             mCurrentMusic = null
-            mView.showIsPlayingView(STATE_STOP)
+            bindMusicStatus()
         }
     }
 
-    override fun getMusicStatus() {
+    override fun bindMusicStatus() {
+        if(mCurrentMusic == null) {
+            mView.showIsPlayingView(STATE_STOP)
+        } else {
+            if(MusicManager.getMediaPlayer().isPlaying) {
+                mView.showIsPlayingView(STATE_PALY)
+            } else {
+                mView.showIsPlayingView(STATE_PAUSE)
+            }
+        }
     }
 
     override fun getCurrentMusic(): Music? = mCurrentMusic

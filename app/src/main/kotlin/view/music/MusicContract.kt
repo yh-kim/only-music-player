@@ -42,7 +42,7 @@ interface MusicContract {
         fun playMusic(music: Music)
         fun pauseMusic()
         fun stopMusic()
-        fun getMusicStatus()
+        fun bindMusicStatus()
         fun getCurrentMusic(): Music?
     }
 }

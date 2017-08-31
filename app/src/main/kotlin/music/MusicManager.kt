@@ -25,7 +25,7 @@ import android.util.Log
 /**
  * Created by yonghoon on 2017-08-29
  */
-
+// TODO MusicPresenter 에 있는 method 를 여기서 구현
 object MusicManager {
     private val mPlayer = MediaPlayer()
     private val mRetriever = MediaMetadataRetriever()
@@ -59,7 +59,5 @@ object MusicManager {
                 "album: ${mRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)}"
 
         Log.d(TAG, info)
-//        mPlayer.trackInfo
-//        mPlayer.isPlaying
     }
 }

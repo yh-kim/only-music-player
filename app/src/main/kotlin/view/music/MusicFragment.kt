@@ -51,6 +51,7 @@ class MusicFragment : BaseFragment(), MusicContract.View {
             setMusicListAdapterModel(mMusicAdapter)
             getMusicListFromServer()
             getMusicListFromStorage()
+            bindMusicStatus()
         }
 
         Log.d(TAG, "onCreateView")
@@ -58,6 +59,7 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     }
 
     override fun start() {
+        // initialize listener
         rootView.rv_main_music_list.run {
             adapter = mMusicAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
