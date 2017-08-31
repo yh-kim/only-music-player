@@ -16,8 +16,10 @@
 
 package view.music
 
+import android.content.Context
 import base.mvp.BasePresenter
 import base.mvp.BaseView
+import view.music.list.adapter.Music
 import view.music.list.adapter.MusicListContract
 import java.io.File
 
@@ -27,15 +29,20 @@ import java.io.File
 
 interface MusicContract {
     interface View: BaseView<Presenter> {
+        fun getContext(): Context
+        fun showIsPlayingView(playState: Int)
     }
 
     interface Presenter: BasePresenter {
         fun setMusicListAdapterView(view: MusicListContract.View)
         fun setMusicListAdapterModel(model: MusicListContract.Model)
-        fun getMusicFileList(): List<File>
+        fun getMusicListFromServer()
+        fun getMusicListFromStorage(): List<File>
         fun playMusic()
+        fun playMusic(music: Music)
         fun pauseMusic()
         fun stopMusic()
         fun getMusicStatus()
+        fun getCurrentMusic(): Music?
     }
 }

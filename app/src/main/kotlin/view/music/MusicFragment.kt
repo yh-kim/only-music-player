@@ -26,6 +26,7 @@ import base.view.BaseFragment
 import com.pickth.onlymusicplayer.R
 import extensions.convertDpToPixel
 import kotlinx.android.synthetic.main.fragment_music.view.*
+import music.MusicManager
 import util.MusicDividerItemDecoration
 import view.music.list.adapter.MusicListAdapter
 
@@ -39,10 +40,6 @@ class MusicFragment : BaseFragment(), MusicContract.View {
     private lateinit var mPresenter: MusicContract.Presenter
     private lateinit var mMusicAdapter: MusicListAdapter
 
-    companion object {
-        val MUSIC_FRAGMENT_TAG = "MUSIC"
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_music, container, false)
 
@@ -52,7 +49,8 @@ class MusicFragment : BaseFragment(), MusicContract.View {
             attachView(this@MusicFragment)
             setMusicListAdapterView(mMusicAdapter)
             setMusicListAdapterModel(mMusicAdapter)
-            getMusicFileList()
+            getMusicListFromServer()
+            getMusicListFromStorage()
         }
 
         Log.d(TAG, "onCreateView")
@@ -67,9 +65,32 @@ class MusicFragment : BaseFragment(), MusicContract.View {
         }
 
         rootView.tv_main_music_play.setOnClickListener {
-            Log.d(TAG, "music play onCLick")
+            if(MusicManager.getMediaPlayer().isPlaying) {
+                mPresenter.pauseMusic()
+            } else {
+                mPresenter.playMusic()
+            }
+        }
 
-//            fragmentChangeListener.onChange(1)
+        rootView.tv_main_music_stop.setOnClickListener {
+            mPresenter.stopMusic()
+        }
+    }
+
+    override fun showIsPlayingView(playState: Int) {
+        when(playState) {
+            MusicPresenter.STATE_PALY -> {
+                rootView.tv_main_music_play.text = "pause"
+                rootView.tv_main_music_info.text = "${mPresenter.getCurrentMusic()?.name} 재생 중 입니다."
+            }
+            MusicPresenter.STATE_PAUSE -> {
+                rootView.tv_main_music_play.text = "play"
+                rootView.tv_main_music_info.text = "${mPresenter.getCurrentMusic()?.name} 일시 정지 중 입니다"
+            }
+            MusicPresenter.STATE_STOP -> {
+                rootView.tv_main_music_play.text = "play"
+                rootView.tv_main_music_info.text = "재생중인 음악이 없습니다"
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pickth.onlymusicplayer.R
+import listener.OnMusicClickListener
 
 /**
  * Created by yonghoon on 2017-08-27
@@ -27,7 +28,7 @@ import com.pickth.onlymusicplayer.R
 
 class MusicListAdapter: RecyclerView.Adapter<MusicListViewHolder>(), MusicListContract.View, MusicListContract.Model {
 
-
+    private lateinit var mMusicClickListener: OnMusicClickListener
     private var mItems = ArrayList<Music>()
 
     override fun onBindViewHolder(holder: MusicListViewHolder, position: Int) {
@@ -41,7 +42,11 @@ class MusicListAdapter: RecyclerView.Adapter<MusicListViewHolder>(), MusicListCo
                 .from(parent.context)
                 .inflate(R.layout.item_music, parent, false)
 
-        return MusicListViewHolder(itemView)
+        return MusicListViewHolder(itemView, mMusicClickListener)
+    }
+
+    override fun setMusicClickListener(listener: OnMusicClickListener) {
+        mMusicClickListener = listener
     }
 
     override fun getItem(position: Int): Music = mItems[position]

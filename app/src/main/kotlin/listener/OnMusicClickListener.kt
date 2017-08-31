@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-package view.music.list.adapter
-
-import listener.OnMusicClickListener
+package listener
 
 /**
- * Created by yonghoon on 2017-08-27
+ * Created by yonghoon on 2017-08-29
  */
 
-interface MusicListContract {
-    interface View {
-        fun setMusicClickListener(listener: OnMusicClickListener)
-    }
-
-    interface Model {
-        fun getItem(position: Int): Music
-        fun add(item: Music)
-        fun getItemCount(): Int
-    }
+interface OnMusicClickListener {
+    fun onMusicClick(position: Int)
 }

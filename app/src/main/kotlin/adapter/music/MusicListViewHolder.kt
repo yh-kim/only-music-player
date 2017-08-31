@@ -19,13 +19,18 @@ package view.music.list.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.item_music.view.*
+import listener.OnMusicClickListener
 
 /**
  * Created by yonghoon on 2017-08-27
  */
 
-class MusicListViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class MusicListViewHolder(view: View, val listener: OnMusicClickListener): RecyclerView.ViewHolder(view) {
     fun onBind(item: Music, position: Int) {
+        itemView.setOnClickListener {
+            listener.onMusicClick(position)
+        }
+
         with(itemView) {
             tv_music_item_title.text = item.name
         }
