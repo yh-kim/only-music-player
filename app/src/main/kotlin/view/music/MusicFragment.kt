@@ -51,8 +51,10 @@ class MusicFragment : BaseFragment(), MusicContract.View {
             setMusicListAdapterModel(mMusicAdapter)
             getMusicListFromServer()
             getMusicListFromStorage()
-            bindMusicStatus()
         }
+
+
+        mPresenter.bindMusicStatus()
 
         Log.d(TAG, "onCreateView")
         return rootView

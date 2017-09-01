@@ -16,7 +16,6 @@
 
 package view.music
 
-import android.net.Uri
 import android.util.Log
 import base.mvp.BaseView
 import listener.OnMusicClickListener
@@ -34,7 +33,6 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
     private lateinit var mView: MusicContract.View
     private lateinit var mMusicView: MusicListContract.View
     private lateinit var mMusicModel: MusicListContract.Model
-    private var mCurrentMusic: Music ?= null
 
     companion object {
         val TAG = "OMP__${javaClass.simpleName}"
@@ -80,79 +78,53 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
     }
 
     override fun playMusic() {
+        val mCurrentMusic = MusicManager.getCurrentMusic()
         if(mCurrentMusic != null) {
-            playMusic(mCurrentMusic!!)
+            playMusic(mCurrentMusic)
         } else {
             playMusic(mMusicModel.getItem(0))
         }
     }
 
     override fun playMusic(music: Music) {
+        val mCurrentMusic = MusicManager.getCurrentMusic()
         val player = MusicManager.getMediaPlayer()
 
         Log.d(TAG, "playMusic")
 
         if(music != mCurrentMusic) {
             Log.d(TAG, "Playing music is not mCurrentMusic")
-            player.run {
-                stop()
-                reset()
-                mCurrentMusic = null
+            MusicManager.stopMusic()
+
+            if(music.type == Music.MUSIC_IN_STORAGE) {
+                MusicManager.playWithFilePath(music)
+            } else {
+                MusicManager.playWithUrl(mView.getContext(), music)
             }
+
         } else {
             Log.d(TAG, "Playing music is mCurrentMusic")
         }
 
-        if(mCurrentMusic == null) {
-            Log.d(TAG, "new playMusic")
-            if(music.type == Music.MUSIC_IN_STORAGE) {
-                player.setDataSource(music.path)
-            } else {
-                player.setDataSource(mView.getContext(), Uri.parse(music.url))
-            }
-
-            player.prepare()
-            mCurrentMusic = music
-        }
-
-        mView.showIsPlayingView(STATE_PALY)
-
+        // at pause
         if(!player.isPlaying) {
             player.start()
-
-            player.setOnCompletionListener {
-                Log.d(TAG, "stopMusic")
-                it.stop()
-                it.reset()
-                mCurrentMusic = null
-                bindMusicStatus()
-            }
         }
+        bindMusicStatus()
     }
 
     override fun pauseMusic() {
-        val player = MusicManager.getMediaPlayer()
-        if(player.isPlaying) {
-            player.run {
-                Log.d(TAG, "pauseMusic")
-                pause()
-                bindMusicStatus()
-            }
-        }
+        MusicManager.pauseMusic()
+        bindMusicStatus()
     }
 
     override fun stopMusic() {
-        val player = MusicManager.getMediaPlayer()
-        player.run {
-            Log.d(TAG, "stopMusic")
-            stop()
-            reset()
-            mCurrentMusic = null
-            bindMusicStatus()
-        }
+        MusicManager.stopMusic()
+        bindMusicStatus()
     }
 
     override fun bindMusicStatus() {
+        val mCurrentMusic = MusicManager.getCurrentMusic()
         if(mCurrentMusic == null) {
             mView.showIsPlayingView(STATE_STOP)
         } else {
@@ -164,5 +136,5 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
         }
     }
 
-    override fun getCurrentMusic(): Music? = mCurrentMusic
+    override fun getCurrentMusic(): Music? = MusicManager.getCurrentMusic()
 }

@@ -21,34 +21,66 @@ import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
+import view.music.MusicPresenter
+import view.music.list.adapter.Music
 
 /**
  * Created by yonghoon on 2017-08-29
  */
-// TODO MusicPresenter 에 있는 method 를 여기서 구현
+
 object MusicManager {
-    private val mPlayer = MediaPlayer()
+    private val mPlayer = MediaPlayer().apply {
+        setOnCompletionListener {
+            Log.d(MusicPresenter.TAG, "stopMusic")
+            it.stop()
+            it.reset()
+            mCurrentMusic = null
+        }
+    }
     private val mRetriever = MediaMetadataRetriever()
     private val TAG = "OMP__${javaClass.simpleName}"
+    private var mCurrentMusic: Music?= null
 
     fun getMediaPlayer() = mPlayer
 
-    fun playWithFilePath(path: String): MediaPlayer = mPlayer.apply {
-        Log.d(TAG, "playWithFilePath path: $path")
-        setDataSource(path)
-        prepare()
-        start()
+    fun playWithFilePath(music: Music) {
+        mPlayer.apply {
+            Log.d(TAG, "playWithFilePath path: $music.path")
+            setDataSource(music.path)
+            prepare()
+            start()
+            mCurrentMusic = music
+        }
     }
 
-    fun playWithUrl(context: Context, url: String): MediaPlayer = mPlayer.apply {
-        Log.d(TAG, "playWithUrl url: $url")
-
-        val uri = Uri.parse(url)
+    fun playWithUrl(context: Context, music: Music) {
+        val uri = Uri.parse(music.url)
+        mPlayer.apply {
+            Log.d(TAG, "playWithUrl url: $music.url")
 //        mRetriever.setDataSource(context, uri)
+            setDataSource(context, uri)
+            prepare()
+            start()
+            mCurrentMusic = music
+        }
+    }
 
-        setDataSource(context, uri)
-        prepare()
-        start()
+    fun pauseMusic() {
+        if(mPlayer.isPlaying) {
+            mPlayer.run {
+                Log.d(MusicPresenter.TAG, "pauseMusic")
+                pause()
+            }
+        }
+    }
+
+    fun stopMusic() {
+        mPlayer.run {
+            Log.d(MusicPresenter.TAG, "stopMusic")
+            stop()
+            reset()
+            mCurrentMusic = null
+        }
     }
 
     fun isPlaying() = mPlayer.isPlaying
@@ -60,4 +92,6 @@ object MusicManager {
 
         Log.d(TAG, info)
     }
+
+    fun getCurrentMusic(): Music? = mCurrentMusic
 }
