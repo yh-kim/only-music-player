@@ -29,14 +29,7 @@ import view.music.list.adapter.Music
  */
 
 object MusicManager {
-    private val mPlayer = MediaPlayer().apply {
-        setOnCompletionListener {
-            Log.d(MusicPresenter.TAG, "stopMusic")
-            it.stop()
-            it.reset()
-            mCurrentMusic = null
-        }
-    }
+    private val mPlayer = MediaPlayer()
     private val mRetriever = MediaMetadataRetriever()
     private val TAG = "OMP__${javaClass.simpleName}"
     private var mCurrentMusic: Music?= null
@@ -44,7 +37,7 @@ object MusicManager {
     fun getMediaPlayer() = mPlayer
 
     fun playWithFilePath(music: Music) {
-        mPlayer.apply {
+        mPlayer.run {
             Log.d(TAG, "playWithFilePath path: $music.path")
             setDataSource(music.path)
             prepare()
@@ -55,9 +48,8 @@ object MusicManager {
 
     fun playWithUrl(context: Context, music: Music) {
         val uri = Uri.parse(music.url)
-        mPlayer.apply {
+        mPlayer.run {
             Log.d(TAG, "playWithUrl url: $music.url")
-//        mRetriever.setDataSource(context, uri)
             setDataSource(context, uri)
             prepare()
             start()

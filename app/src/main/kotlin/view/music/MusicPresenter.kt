@@ -88,7 +88,12 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
 
     override fun playMusic(music: Music) {
         val mCurrentMusic = MusicManager.getCurrentMusic()
-        val player = MusicManager.getMediaPlayer()
+        val player = MusicManager.getMediaPlayer().apply {
+            setOnCompletionListener {
+                MusicManager.stopMusic()
+                bindMusicStatus()
+            }
+        }
 
         Log.d(TAG, "playMusic")
 
@@ -108,7 +113,9 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
 
         // at pause
         if(!player.isPlaying) {
-            player.start()
+            player.run {
+                start()
+            }
         }
         bindMusicStatus()
     }
