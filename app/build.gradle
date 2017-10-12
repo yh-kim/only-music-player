@@ -43,6 +43,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.0.0-RC1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
