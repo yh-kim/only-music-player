@@ -24,7 +24,7 @@ import listener.OnFragmentChangeListener
  */
 
 open class BaseFragment: Fragment() {
-    val TAG = "OMP__${javaClass.simpleName}"
+    val TAG = "$javaClass.simpleName"
 
     lateinit var fragmentChangeListener: OnFragmentChangeListener
 

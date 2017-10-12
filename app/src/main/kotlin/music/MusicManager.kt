@@ -31,7 +31,7 @@ import view.music.list.adapter.Music
 object MusicManager {
     private val mPlayer = MediaPlayer()
     private val mRetriever = MediaMetadataRetriever()
-    private val TAG = "OMP__${javaClass.simpleName}"
+    private val TAG = "$javaClass.simpleName"
     private var mCurrentMusic: Music?= null
 
     fun getMediaPlayer() = mPlayer
@@ -60,7 +60,7 @@ object MusicManager {
     fun pauseMusic() {
         if(mPlayer.isPlaying) {
             mPlayer.run {
-                Log.d(MusicPresenter.TAG, "pauseMusic")
+                Log.d(TAG, "pauseMusic")
                 pause()
             }
         }
@@ -68,7 +68,7 @@ object MusicManager {
 
     fun stopMusic() {
         mPlayer.run {
-            Log.d(MusicPresenter.TAG, "stopMusic")
+            Log.d(TAG, "stopMusic")
             stop()
             reset()
             mCurrentMusic = null

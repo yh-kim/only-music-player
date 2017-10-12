@@ -23,5 +23,5 @@ import android.support.v7.app.AppCompatActivity
  */
 
 open class BaseActivity: AppCompatActivity() {
-    val TAG = "OMP__${javaClass.simpleName}"
+    val TAG = "$javaClass.simpleName"
 }

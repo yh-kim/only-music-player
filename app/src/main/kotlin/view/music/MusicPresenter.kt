@@ -33,9 +33,9 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
     private lateinit var mView: MusicContract.View
     private lateinit var mMusicView: MusicListContract.View
     private lateinit var mMusicModel: MusicListContract.Model
+    val TAG = "$javaClass.simpleName"
 
     companion object {
-        val TAG = "OMP__${javaClass.simpleName}"
         val STATE_PALY = 0
         val STATE_PAUSE = 1
         val STATE_STOP = 2
