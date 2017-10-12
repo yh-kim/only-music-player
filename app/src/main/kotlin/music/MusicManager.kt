@@ -31,7 +31,7 @@ import view.music.list.adapter.Music
 object MusicManager {
     private val mPlayer = MediaPlayer()
     private val mRetriever = MediaMetadataRetriever()
-    private val TAG = "$javaClass.simpleName"
+    private val TAG = "${javaClass.simpleName}"
     private var mCurrentMusic: Music?= null
 
     fun getMediaPlayer() = mPlayer

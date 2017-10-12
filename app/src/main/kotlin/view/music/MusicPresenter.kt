@@ -33,7 +33,7 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
     private lateinit var mView: MusicContract.View
     private lateinit var mMusicView: MusicListContract.View
     private lateinit var mMusicModel: MusicListContract.Model
-    val TAG = "$javaClass.simpleName"
+    val TAG = "${javaClass.simpleName}"
 
     companion object {
         val STATE_PALY = 0
@@ -56,7 +56,7 @@ class MusicPresenter : MusicContract.Presenter, OnMusicClickListener {
     }
 
     override fun getMusicListFromServer() {
-        mMusicModel.add(Music("아이유 - 밤편지", 1, url = "https://s3.ap-northeast-2.amazonaws.com/comepenny/music/%EC%95%84%EC%9D%B4%EC%9C%A0+-+%EB%B0%A4%ED%8E%B8%EC%A7%80.mp3"))
+//        mMusicModel.add(Music("아이유 - 밤편지", 1, url = "https://s3.ap-northeast-2.amazonaws.com/comepenny/music/%EC%95%84%EC%9D%B4%EC%9C%A0+-+%EB%B0%A4%ED%8E%B8%EC%A7%80.mp3"))
     }
 
     override fun getMusicListFromStorage(): List<File> {

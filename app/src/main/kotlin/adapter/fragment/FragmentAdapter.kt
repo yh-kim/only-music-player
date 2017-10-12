@@ -29,7 +29,7 @@ import view.music.PlayerFragment
  */
 
 class FragmentAdapter(val fragmentManager: FragmentManager) : FragmentAdapterModel, OnFragmentChangeListener {
-    val TAG = "$javaClass.simpleName"
+    val TAG = "${javaClass.simpleName}"
 
     var currentPosition = 0
     private var frameLayoutId: Int = 0
